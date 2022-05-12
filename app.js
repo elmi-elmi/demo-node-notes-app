@@ -1,4 +1,5 @@
-const getNotes = require('./notes.js');
+const fs = require('fs');
+const notes = require('./notes.js');
 const chalk = require('chalk');
 
 
@@ -9,10 +10,6 @@ yargs.version('1.1.0');
 yargs.command({
     command: 'add',
     describe: 'Add a new note',
-    handler: function (argv) {
-        console.log('title:', argv.title);
-        console.log('body:', argv.body);
-    },
     builder:{
         title:{
             describe: 'Note title',
@@ -24,7 +21,12 @@ yargs.command({
             demandOption: true,
             type: 'string'
         }
-    }
+    },
+    handler: function (argv) {
+        console.log('title:', argv.title);
+        console.log('body:', argv.body);
+        notes.addNotes(argv.title,argv.body)
+    },
 })
 
 yargs.command({
@@ -55,3 +57,7 @@ yargs.command({
 yargs.parse();
 // console.log(yargs.argv);
 //
+
+
+
+
