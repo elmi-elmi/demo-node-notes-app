@@ -32,8 +32,6 @@ const saveNotes=(notes)=>{
 
 const loadNotes = ()=>{
     try{
-        console.log('try....(loadNotes)')
-
         const dataBuffer = fs.readFileSync('notes.json')
         const dataJson = dataBuffer.toString()
 
@@ -57,8 +55,31 @@ const removeNote = (title)=>{
     }
 }
 
+const printNotes = ()=>{
+    console.log(chalk.yellow.inverse('list of notes:'))
+    const notes = loadNotes();
+    notes.forEach(note=>{
+        console.log(chalk.green.inverse(note.title))
+        console.log(chalk.blueBright.inverse(note.body))
+        console.log('\n')
+    })
+}
+
+const readNote = (title)=>{
+    const notes = loadNotes();
+    const note = notes.find(note=>note.title===title)
+
+    if(note){
+        console.log(chalk.green.inverse(note.body))
+    }else{
+        console.log(chalk.red.inverse('this note not exist'))
+    }
+}
+
 module.exports = {
     getNotes,
     addNotes,
-    removeNote
+    removeNote,
+    printNotes,
+    readNote
 }
