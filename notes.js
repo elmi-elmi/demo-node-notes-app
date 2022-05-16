@@ -12,6 +12,8 @@ const addNotes = (title, body)=>{
 
     const duplicateNotes = notes.filter(note=>note.title===title)
 
+    debugger
+
     if(!duplicateNotes.length){
         notes.push({title, body})
         saveNotes(notes)
